@@ -1,4 +1,4 @@
-#  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission 
+#  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission
 #  For more information, see http://csem.engin.umich.edu/tools/swmf
 
 include ../../../Makefile.def
@@ -9,7 +9,8 @@ MY_LIB = ${LIBDIR}/libEMPIRICALUA.a
 OBJECTS =\
 	ModIri90.o\
 	ModMsis90.o\
-        ModMsis00.o
+    ModMsis21.o\
+    ModMsis00.o
 
 LIB:
 	make ${MY_LIB}

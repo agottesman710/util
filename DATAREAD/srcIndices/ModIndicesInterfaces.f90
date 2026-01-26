@@ -1,4 +1,4 @@
-!  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission 
+!  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission
 !  For more information, see http://csem.engin.umich.edu/tools/swmf
 
 Module ModIndicesInterfaces
@@ -181,6 +181,32 @@ Module ModIndicesInterfaces
        real, intent(out)    :: value
        integer, intent(out) :: iOutputError
      end subroutine get_hpi_wotime
+  end interface
+
+  interface get_hpi_N
+      subroutine get_hpi_n_wtime(TimeIn, value, iOutputError)
+          use ModKind
+          real(Real8_)  :: TimeIn
+          real, intent(out)    :: value
+          integer, intent(out) :: iOutputError
+      end subroutine get_hpi_n_wtime
+      subroutine get_hpi_n_wotime(value, iOutputError)
+          real, intent(out)    :: value
+          integer, intent(out) :: iOutputError
+      end subroutine get_hpi_n_wotime
+  end interface
+
+  interface get_hpi_S
+      subroutine get_hpi_s_wtime(TimeIn, value, iOutputError)
+          use ModKind
+          real(Real8_)  :: TimeIn
+          real, intent(out)    :: value
+          integer, intent(out) :: iOutputError
+      end subroutine get_hpi_s_wtime
+      subroutine get_hpi_s_wotime(value, iOutputError)
+          real, intent(out)    :: value
+          integer, intent(out) :: iOutputError
+      end subroutine get_hpi_s_wotime
   end interface
 
   interface get_hpi_calc

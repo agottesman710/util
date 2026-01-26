@@ -9,11 +9,11 @@ subroutine check_all_indices(TimeIn, iOutputError)
    implicit none
    real(Real8_), intent(in)  :: TimeIn
    integer, intent(out) :: iOutputError
- 
+
    integer :: iIndex
- 
+
    iOutputError = 0
- 
+
    do iIndex = 1, nIndices
      ! If there are 0 times, then no error, since there are no values
      ! If there is 1 time, then it is a constant
@@ -23,19 +23,19 @@ subroutine check_all_indices(TimeIn, iOutputError)
            5.0*(IndexTimes_TV(2, iIndex) - IndexTimes_TV(1, iIndex))) then
          iOutputError = 3
        end if
- 
+
        if ((TimeIn - IndexTimes_TV(nIndices_V(iIndex), iIndex)) > &
            5.0*(IndexTimes_TV(2, iIndex) - IndexTimes_TV(1, iIndex))) then
             iOutputError = 3
        end if
      end if
    end do
- 
+
    return
  end subroutine check_all_indices
- 
+
  ! ---------------------------------------------------
- 
+
  subroutine indices_set_IMF_Bz_single(BzIn)
 
   use ModIndices
@@ -206,7 +206,7 @@ subroutine get_index(label_, TimeIn, Interpolate, value, iOutputError)
      iOutputError = 2
      return
   endif
-     
+
   if (nIndices_V(label_) == 1) then
      value = Indices_TV(1,label_)
      return
@@ -251,9 +251,9 @@ subroutine get_index(label_, TimeIn, Interpolate, value, iOutputError)
 
   enddo
 
-  if (Interpolate == 1) then 
+  if (Interpolate == 1) then
      value = Indices_TV(iMin, label_)
-  elseif (Interpolate == 2) then 
+  elseif (Interpolate == 2) then
      value = Indices_TV(iMin+1, label_)
   else
 
@@ -311,7 +311,7 @@ subroutine get_IMF_Bx_wotime(value, iOutputError)
      value = SavedIndices_V(imf_bx_)
      iOutputError = SavedErrors_V(imf_bx_)
   endif
-  
+
 end subroutine get_IMF_Bx_wotime
 
 subroutine get_IMF_By_wtime(TimeIn, value, iOutputError)
@@ -351,7 +351,7 @@ subroutine get_IMF_By_wotime(value, iOutputError)
      value = SavedIndices_V(imf_by_)
      iOutputError = SavedErrors_V(imf_by_)
   endif
-  
+
 end subroutine get_IMF_By_wotime
 
 subroutine get_IMF_Bz_wtime(TimeIn, value, iOutputError)
@@ -391,7 +391,7 @@ subroutine get_IMF_Bz_wotime(value, iOutputError)
      value = SavedIndices_V(imf_bz_)
      iOutputError = SavedErrors_V(imf_bz_)
   endif
-  
+
 end subroutine get_IMF_Bz_wotime
 
 subroutine get_IMF_B_wtime(TimeIn, value, iOutputError)
@@ -499,7 +499,7 @@ subroutine get_SW_Vx_wotime(value, iOutputError)
      value = SavedIndices_V(sw_vx_)
      iOutputError = SavedErrors_V(sw_vx_)
   endif
-  
+
 end subroutine get_SW_Vx_wotime
 
 !\
@@ -543,7 +543,7 @@ subroutine get_SW_Vy_wotime(value, iOutputError)
      value = SavedIndices_V(sw_vy_)
      iOutputError = SavedErrors_V(sw_vy_)
   endif
-  
+
 end subroutine get_SW_Vy_wotime
 
 !\
@@ -587,7 +587,7 @@ subroutine get_SW_Vz_wotime(value, iOutputError)
      value = SavedIndices_V(sw_vz_)
      iOutputError = SavedErrors_V(sw_vz_)
   endif
-  
+
 end subroutine get_SW_Vz_wotime
 
 !\
@@ -616,7 +616,7 @@ subroutine get_SW_V_wtime(TimeIn, value, iOutputError)
 
   call get_index(sw_vx_, TimeIn, 0, value_x, iOutputError)
 
-  if (iOutputError > 0) then 
+  if (iOutputError > 0) then
 
      !\
      ! This means that we don't have the 3 components, but we may
@@ -662,7 +662,7 @@ subroutine get_SW_V_wotime(value, iOutputError)
      value_x = SavedIndices_V(sw_vx_)
      iOutputError = SavedErrors_V(sw_vx_)
 
-     if (iOutputError > 0) then 
+     if (iOutputError > 0) then
 
         !\
         ! This means that we don't have the 3 components, but we may
@@ -721,7 +721,7 @@ subroutine get_SW_N_wotime(value, iOutputError)
      value = SavedIndices_V(sw_n_)
      iOutputError = SavedErrors_V(sw_n_)
   endif
-  
+
 end subroutine get_SW_N_wotime
 
 !------------------------------------------------------------------------------
@@ -765,7 +765,7 @@ subroutine get_f107_wotime(value, iOutputError)
      value = SavedIndices_V(f107_)
      iOutputError = SavedErrors_V(f107_)
   endif
-  
+
 end subroutine get_f107_wotime
 
 !------------------------------------------------------------------------------
@@ -807,7 +807,7 @@ subroutine get_f107a_wotime(value, iOutputError)
      value = SavedIndices_V(f107a_)
      iOutputError = SavedErrors_V(f107a_)
   endif
-  
+
 end subroutine get_f107a_wotime
 
 !------------------------------------------------------------------------------
@@ -849,8 +849,86 @@ subroutine get_hpi_wotime(value, iOutputError)
      value = SavedIndices_V(hpi_)
      iOutputError = SavedErrors_V(hpi_)
   endif
-  
+
 end subroutine get_hpi_wotime
+
+! North
+subroutine get_hpi_n_wtime(TimeIn, value, iOutputError)
+
+    use ModKind
+    use ModIndices
+
+    implicit none
+
+    real(Real8_), intent(in) :: TimeIn
+    real, intent(out)               :: value
+    integer, intent(out)            :: iOutputError
+
+    call get_index(hpi_nh_, TimeIn, 0, value, iOutputError)
+
+end subroutine get_hpi_n_wtime
+
+subroutine get_hpi_n_wotime(value, iOutputError)
+
+    use ModKind
+    use ModIndices
+
+    implicit none
+
+    real, intent(out)    :: value
+    integer, intent(out) :: iOutputError
+
+    iOutputError = 0
+
+    if (SavedTime < 0.0) then
+        value = -1.0e32
+        iOutputError = 3
+        return
+    else
+        value = SavedIndices_V(hpi_nh_)
+        iOutputError = SavedErrors_V(hpi_nh_)
+    endif
+
+end subroutine get_hpi_n_wotime
+
+! North
+subroutine get_hpi_s_wtime(TimeIn, value, iOutputError)
+
+    use ModKind
+    use ModIndices
+
+    implicit none
+
+    real(Real8_), intent(in) :: TimeIn
+    real, intent(out)               :: value
+    integer, intent(out)            :: iOutputError
+
+    call get_index(hpi_sh_, TimeIn, 0, value, iOutputError)
+
+end subroutine get_hpi_s_wtime
+
+subroutine get_hpi_s_wotime(value, iOutputError)
+
+    use ModKind
+    use ModIndices
+
+    implicit none
+
+    real, intent(out)    :: value
+    integer, intent(out) :: iOutputError
+
+    iOutputError = 0
+
+    if (SavedTime < 0.0) then
+        value = -1.0e32
+        iOutputError = 3
+        return
+    else
+        value = SavedIndices_V(hpi_sh_)
+        iOutputError = SavedErrors_V(hpi_sh_)
+    endif
+
+end subroutine get_hpi_s_wotime
 
 subroutine get_hpi_calc_wtime(TimeIn, value, iOutputError)
 
@@ -887,7 +965,7 @@ subroutine get_hpi_calc_wotime(value, iOutputError)
      value = SavedIndices_V(hpi_calc_)
      iOutputError = SavedErrors_V(hpi_calc_)
   endif
-  
+
 end subroutine get_hpi_calc_wotime
 
 subroutine get_hpi_norm_wtime(TimeIn, value, iOutputError)
@@ -932,7 +1010,7 @@ subroutine get_hpi_norm_wotime(value, iOutputError)
      value = SavedIndices_V(hpi_norm_)
      iOutputError = SavedErrors_V(hpi_norm_)
   endif
-  
+
 end subroutine get_hpi_norm_wotime
 
 !------------------------------------------------------------------------------
@@ -974,7 +1052,7 @@ subroutine get_kp_wotime(value, iOutputError)
      value = SavedIndices_V(kp_)
      iOutputError = SavedErrors_V(kp_)
   endif
-  
+
 end subroutine get_kp_wotime
 
 !------------------------------------------------------------------------------
@@ -1016,7 +1094,7 @@ subroutine get_ap_wotime(value, iOutputError)
      value = SavedIndices_V(ap_)
      iOutputError = SavedErrors_V(ap_)
   endif
-  
+
 end subroutine get_ap_wotime
 
 !------------------------------------------------------------------------------
@@ -1058,7 +1136,7 @@ subroutine get_au_wotime(value, iOutputError)
      value = SavedIndices_V(au_)
      iOutputError = SavedErrors_V(au_)
   endif
-  
+
 end subroutine get_au_wotime
 
 subroutine get_al_wtime(TimeIn, value, iOutputError)
@@ -1096,7 +1174,7 @@ subroutine get_al_wotime(value, iOutputError)
      value = SavedIndices_V(al_)
      iOutputError = SavedErrors_V(al_)
   endif
-  
+
 end subroutine get_al_wotime
 
 subroutine get_ae_wtime(TimeIn, value, iOutputError)
@@ -1134,7 +1212,7 @@ subroutine get_ae_wotime(value, iOutputError)
      value = SavedIndices_V(ae_)
      iOutputError = SavedErrors_V(ae_)
   endif
-  
+
 end subroutine get_ae_wotime
 
 subroutine get_onsetut_wtime(TimeIn, iNext, value, iOutputError)
@@ -1175,7 +1253,7 @@ subroutine get_onsetut_wotime(value, iOutputError)
      value = SavedIndices_V(onsetut_)
      iOutputError = SavedErrors_V(onsetut_)
   endif
-  
+
 end subroutine get_onsetut_wotime
 
 subroutine get_nAE_wtime(TimeIn, value, iOutputError)
@@ -1213,7 +1291,7 @@ subroutine get_nAE_wotime(value, iOutputError)
      value = SavedIndices_V(nAE_)
      iOutputError = SavedErrors_V(nAE_)
   endif
-  
+
 end subroutine get_nAE_wotime
 
 !------------------------------------------------------------------------------
@@ -1255,7 +1333,7 @@ subroutine get_dst_wotime(value, iOutputError)
      value = SavedIndices_V(dst_)
      iOutputError = SavedErrors_V(dst_)
   endif
-  
+
 end subroutine get_dst_wotime
 
 subroutine get_nDst_wtime(TimeIn, value, iOutputError)
@@ -1293,7 +1371,7 @@ subroutine get_nDst_wotime(value, iOutputError)
      value = SavedIndices_V(nDst_)
      iOutputError = SavedErrors_V(nDst_)
   endif
-  
+
 end subroutine get_nDst_wotime
 
 !------------------------------------------------------------------------------
@@ -1335,6 +1413,6 @@ subroutine get_jh_calc_wotime(value, iOutputError)
      value = SavedIndices_V(jh_calc_)
      iOutputError = SavedErrors_V(jh_calc_)
   endif
-  
+
 end subroutine get_jh_calc_wotime
 

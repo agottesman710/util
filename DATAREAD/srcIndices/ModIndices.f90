@@ -1,4 +1,4 @@
-!  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission 
+!  Copyright (C) 2002 Regents of the University of Michigan, portions used with permission
 !  For more information, see http://csem.engin.umich.edu/tools/swmf
 
 Module ModIndices
@@ -9,7 +9,7 @@ Module ModIndices
   implicit none
 
   integer, parameter :: iCharLenIndices_     = 400
-  
+
   integer, parameter :: MaxInputLines=10000
 
   integer, parameter :: GSM_ = 1
@@ -41,9 +41,11 @@ Module ModIndices
   integer, parameter :: onsetut_  = 24
   integer, parameter :: onsetmlat_= 25
   integer, parameter :: onsetmlt_ = 26
+  integer, parameter :: hpi_nh_ = 27
+  integer, parameter :: hpi_sh_ = 28
 
   integer, parameter :: MaxIndicesEntries = 60000
-  integer, parameter :: nIndices  = onsetmlt_
+  integer, parameter :: nIndices  = hpi_sh_
 
   real, allocatable           :: Indices_TV(:,:)
   integer, dimension(nIndices)                           :: nIndices_V=0
